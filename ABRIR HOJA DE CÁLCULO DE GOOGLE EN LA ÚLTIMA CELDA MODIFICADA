@@ -1,0 +1,15 @@
+function guardarMisPropiedades() {
+  let hoja = SpreadsheetApp.getActiveSheet();
+  let nombreHoja = hoja.getName();
+  let celdaActual = hoja.getActiveCell().getA1Notation();
+  Logger.log(nombreHoja);
+  Logger.log(celdaActual);
+  PropertiesService.getUserProperties().setProperty("nombreDeHoja",nombreHoja);
+  PropertiesService.getUserProperties().setProperty("ultimacelda",celdaActual);
+}
+
+function onOpen(){
+  let ultimaHojaModificada = PropertiesService.getUserProperties().getProperty("nombreDeHoja");
+  let ultimaCeldaModificada = PropertiesService.getUserProperties().getProperty("ultimacelda");
+  SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ultimaHojaModificada).getRange(ultimaCeldaModificada).activate();
+}
